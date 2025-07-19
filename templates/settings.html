@@ -1,0 +1,86 @@
+<h2 id="h2Settings">Einstellungen</h2>
+
+<div class="img-button" id="imgCloseSettings">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentcolor" id="svgCloseSettings">
+        <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/>
+    </svg>
+</div>
+<label class="left-aligned">
+    <input id="inpLanguage" class="slider" type="range" min="0" max="4" value="0">
+    <span id="lblLanguage">Sprache</span>
+</label>
+<div class="control" hidden>
+    <label for="inpTheme" id="lblTheme">Darkmode</label>
+    <input type="range" id="inpTheme" min="0" max="1" value="0">
+    <span id="spnLightMode" class="unit">Lightmode</span>
+</div>
+<label class="left-aligned">
+    <input id="inpShowLanguageButton" type='checkbox' role='switch'>
+    <span id="lblShowLanguageButton">Sprachbutton auf Startseite</span> 
+</label>
+<label class="left-aligned">
+    <input id="inpShowThemeButton" type='checkbox' role='switch'>
+    <span id="lblShowThemeButton">Themebutton auf Startseite</span> 
+</label>
+<label class="left-aligned">
+    <input id="inpShowHelp" type='checkbox' role='switch'>
+    <span id="lblShowHelp">Hilfebutton anzeigen</span> 
+</label>
+<label class="left-aligned">
+    <input id="inpUseDefaults" type='checkbox' role='switch'>
+    <span id="lblUseDefaults">Defaultwerte verwenden</span> 
+</label>
+<div class="control-box">
+    <div class="control">
+        <input id="inpDefaultTileWidth" type="text" placeholder=" " inputmode="numeric" maxlength="4">
+        <label for="inpDefaultTileWidth" id="lblDefaultTileWidth">Plattenbreite</label>
+        <span class="unit">mm</span>
+    </div>
+    <div class="control">
+        <input id="inpDefaultTileLength" type="text" placeholder=" " inputmode="numeric" maxlength="4">      
+        <label for="inpDefaultTileLength" id="lblDefaultTileLength">Plattenlänge</label>
+        <span class="unit">mm</span>
+    </div>    
+</div>
+<div class="control-box">
+    <div class="control">
+        <input id="inpDefaultJointsWidth" type="text" placeholder=" " inputmode="numeric" maxlength="2">            
+        <label for="inpDefaultJointsWidth" id="lblDefaultJointsWidth">Default-Fugenbreite</label>
+        <span class="unit">mm</span>
+    </div> 
+    <div class="control">
+        <input id="inpDefaultJointsDepth" type="text" placeholder=" " inputmode="numeric" maxlength="2">
+        <label for="inpDefaultJointsDepth" id="lblDefaultJointsDepth">Default-Fugentiefe</label>
+        <span class="unit">mm</span>
+    </div>    
+</div>
+<h5 id="h5MaterialSizes">Materialgrössen</h5>
+<div class="control">
+    <label for="inpBagSize" id="lblBagSize">Sack Kleber</label>
+    <input type="range" id="inpBagSize" min="15" max="25" value="25" step="10">
+    <span class="unit">25 kg</span>
+</div>
+<div class="control">
+    <label for="inpPouchSize" id="lblPouchSize">Fuge</label>
+    <input type="range" id="inpPouchSize" min="5" max="25" value="5" step="5">
+    <span class="unit">5 kg</span>
+</div>
+<div class="control">
+    <label for="inpPackageSize" id="lblPackageSize">Fliesen / Pack</label>
+    <input type="range" id="inpPackageSize" min="1" max="50" value="6">
+    <span class="unit">6 Stk</span>
+    <datalist id="lstPackageSize" hidden>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option selected>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>11</option>
+        <option>25</option>
+        <option>44</option>
+        <option>50</option>
+        <!-- Mosaik: 20 Blatt á 225 Stk. -->
+        <!-- <option>4500</option> -->
+    </datalist>
+</div>

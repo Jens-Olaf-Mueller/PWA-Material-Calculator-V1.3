@@ -1,0 +1,275 @@
+:root {
+    --gridGap: 1rem;
+    --gridCols: 5;
+    --buttonWidth: calc((100vw - var(--gridCols) * var(--gridGap)) / var(--gridCols));
+    --podWidth: calc(var(--gridCols) * var(--buttonWidth) + 6 * var(--gridGap));
+    --buttonHeight: 3rem;
+    --buttonTextColor: #999;
+    --buttonSpecialColor: #5166d6;
+    --buttonMemBgColor: #555;
+
+    --displayHeight: 7rem;
+    --displayBorderRadius: 0.5rem;
+    --displayBgColor: #282c2f;
+    --displayColor: #aaa;
+
+    --shadow-dark :#040406;
+    --shadow-light: #444;
+}
+
+/* theme styles for the calculator */
+html[data-theme="light"] {    
+    --displayTextShadow: -1px -1px 2px white, 2px 2px 2px #00000066;
+    --buttonTextColor: #222; /* #101010 */
+    --displayBgColor: #ecf0f3;
+    --displayColor: #5166d6;
+    --buttonMemBgColor: #bdbdbd;
+}
+
+.flx-end {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;    
+}
+
+#divCalcSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--bg2), var(--bg1));
+    color: var(--buttonTextColor);
+    padding: 4.25rem 1rem 1rem;
+}
+
+#h2CalcSettings {
+    font-size: 1.25rem;
+}
+
+.calculator-pod {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(var(--gridCols), var(--buttonWidth));
+    grid-gap: var(--gridGap);
+    justify-content: center;
+    align-content: center;
+    
+    background: linear-gradient(135deg, var(--bg2), var(--bg1));
+    opacity: 1;
+    animation: fadeIn 250ms ease-in;
+    z-index: 99999;
+}
+
+.calculator-pod[hidden] {
+    opacity: 0;
+    z-index: -99999;
+}
+
+@keyframes fadeIn {  
+    from {  
+        opacity:0;  
+    }  
+    to {  
+        opacity:1;  
+    }  
+}
+
+.display {
+    display: grid;
+    grid-template-rows: 1rem 1fr;
+    grid-column: 1 / span var(--gridCols, 5);
+    height: var(--displayHeight, 5.5rem);
+    font-size: 2rem;
+    padding: 0.5rem;
+    width: 100%;
+    border-radius: var(--displayBorderRadius, 4px);
+    color: var(--displayColor);
+    background-color: var(--displayBgColor);
+    text-shadow: var(--displayTextShadow, unset);
+    box-shadow: inset 5px 5px 5px var(--shadow-dark), inset -5px -5px 5px var(--shadow-light);
+}
+
+.status-bar {
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    align-items: center;
+    font-size: x-small;
+}
+
+.calc-btn {
+    border: 0;
+    border-radius: 8px;
+    height: var(--buttonHeight);
+    width: var(--buttonWidth);
+    font-size: x-large;
+    font-weight: bold;
+    background-color: transparent;
+    color: var(--buttonTextColor);
+    box-shadow: -6px -6px 8px var(--shadow-light), 6px 6px 8px var(--shadow-dark);
+}
+
+/* !important - because of round buttons! */
+.calc-btn:active {
+    box-shadow: inset 5px 5px 5px var(--shadow-dark),
+                inset -5px -5px 5px var(--shadow-light) !important;
+    transform: translate(1px, 1px) !important;
+}
+
+.calc-btn.operator {
+    color: tomato;
+}
+
+.calc-btn.special {
+    color: var(--buttonSpecialColor);
+}
+
+.calculator-pod:has(.calc-btn.enter[hidden]) .calc-btn.equals {
+    grid-row: span 2;
+    height: auto;
+}
+
+.calc-btn.memory {
+    background-color: var(--buttonMemBgColor, #555);
+    font-size: medium;
+}
+
+.calc-btn.small-font {
+    font-size: 1.25rem;
+}
+
+.calc-btn.zero {
+    grid-column: span 2;
+    width: auto;
+}
+
+.calculator-pod[data-buttons="round"] .calc-btn.zero {
+    height: var(--buttonWidth);
+    width: auto;
+    border-radius: calc(var(--buttonWidth) / 2);
+}
+
+.calculator-pod[data-buttons="round"] .calc-btn {
+    width: var(--buttonWidth);
+    height: var(--buttonWidth);
+    border-radius: 50%;
+    box-shadow: -6px -6px 8px var(--shadow-light), 6px 6px 8px var(--shadow-dark);
+}
+
+/* handle the equals button when buttons are round and enter key is hidden */
+.calculator-pod[data-buttons="round"]:has(.calc-btn.enter[hidden]) .calc-btn.equals {
+    border-radius: calc(var(--buttonWidth) / 2);
+}
+
+
+
+/*********************************************************************************************/
+/*****                     styling the calculator's landscape mode                       *****/
+/*********************************************************************************************/
+@media screen and (min-height: 320px) and (max-width: 960px) and (orientation: landscape) {
+    :root {
+        --gridGap: 1rem;
+        --gridCols: 9;   /* in landscape mode we need 9 columns! */
+        --asideRight: calc(var(--navButtonSize) + var(--gridGap)); /* for nav-buttons on the right side*/
+        --buttonWidth: calc((100vw - var(--gridCols) * var(--gridGap) - var(--asideRight)) / var(--gridCols));
+        --displayHeight: 5rem;
+    }
+    
+    .calculator-pod {
+        grid-template-columns: repeat(var(--gridCols), var(--buttonWidth));
+        width: calc(100vw + var(--asideRight));
+        margin-right: var(--asideRight);
+    }
+
+    .calculator-pod[data-buttons="round"] {
+        --gridGap: 0.8rem;
+    }
+
+    .calculator-pod[data-buttons="round"] .calc-btn {
+        --buttonSize: calc((100vh - var(--displayHeight) - 4 * var(--gridGap)) / 4 - 2px);
+        width: var(--buttonSize);
+        height: var(--buttonSize);
+    }
+
+    .calculator-pod[data-buttons="round"] .calc-btn.zero,
+    .calculator-pod[data-buttons="round"] .calc-btn.equals {
+        height: var(--buttonSize);
+        /* width: calc(2 * (var(--buttonSize) + var(--gridGap))); */
+        width: calc(2 * var(--buttonSize) + var(--gridGap));
+        border-radius: calc(var(--buttonSize) / 2);
+    }
+
+    .display {
+        grid-column: span var(--gridCols);
+    }
+
+    .calculator-pod[data-buttons="round"] .display {
+        width: calc(100% - var(--gridGap));
+    }
+
+    /* re-arrange the grid-columns */
+    /* ls = landscape mode         */
+    /* c1 = column 1               */
+    /* r1 = row 1     and so on... */
+    .calc-btn.zero {
+        grid-column: 1 / span 2;
+        width: auto;
+    }    
+
+    .calc-btn.ls-c1 {
+        grid-column: 1;
+    }
+
+    .calc-btn.ls-c4 {
+        grid-column: 4;
+    }
+
+    .calc-btn.ls-c5 {
+        grid-column: 5;
+    }
+
+    .calc-btn.enter {
+        grid-column: 7;
+        grid-row: 5;
+    }
+
+    .calc-btn.equals {
+        grid-column: 8 / span 2;
+        height: var(--buttonHeight);
+        width: auto;
+    }
+
+    /* re-arrange the grid-rows analog to the columns */
+    .calc-btn.ls-r2 {
+        grid-row: 2;
+    }
+
+    .calc-btn.ls-r3 {
+        grid-row: 3;
+    }
+
+    .calc-btn.ls-r4 {
+        grid-row: 4;
+    }
+
+    .calc-btn.ls-r5 {
+        grid-row: 5;
+    }
+
+    /* resize the equals button when enter-button is hidden */
+    .calculator-pod:has(.calc-btn.enter[hidden]) .calc-btn.equals {
+        grid-column: 7 / span 3;
+        height: var(--buttonHeight);
+        width: auto;
+    }
+
+    /* resize the equals button when buttons are round and enter is hidden */
+    .calculator-pod[data-buttons="round"]:has(.calc-btn.enter[hidden]) .calc-btn.equals {
+        height: var(--buttonSize);
+        width: calc(3 * (var(--buttonSize) + 2 * var(--gridGap)));
+        border-radius: calc(var(--buttonSize) / 2);
+    }
+}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="theme-color" media="(prefers-color-scheme: dark)"  content="#323234">
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#323234">
+    <meta name="mobile-web-app-capable" content="yes">
+    <!-- <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"> -->
+    <meta name="description"
+          content="Materialrechner zum Berechnen von Fliesen, Kleber, Fugenmaterial und Nivelliermasse"/>
+
+    <title>Material calculator</title>
+
+    <link rel="icon" href="./img/icon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="./img/icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="./style/style.css">
+
+    <script defer src="./js/material.js" type="module"></script>       
+</head>
+<body>
+    <div w3-include-html="templates/main.html" id="divPod" class="pod-container"></div>
+
+    <div w3-include-html="templates/settings.html" 
+         id="divSettings" 
+         class="pod-container settings" 
+         hidden>
+    </div>
+
+    <div id="divResult" class="pod-container" hidden>
+        <div id="divResultGrid" class="result"></div>
+    </div>
+
+    <div id="divHelp" class="pod-container help" hidden>
+        <br>
+        <h2 id="h2Help">Hilfe</h2>
+        <p id="parHelpText"></p>
+        <br>
+        <p id="parAbout"></p>
+    </div>
+
+    <div class="img-button" id="imgClose" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentcolor">
+            <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"/>
+        </svg>
+    </div>  
+</body>
+<script>
+    function log(expression) { console.log(expression); }
+</script>
+</html>

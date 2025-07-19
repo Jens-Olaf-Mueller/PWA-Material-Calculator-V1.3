@@ -1,0 +1,137 @@
+<nav class="nav-bar-top">
+    <div class="img-button" id="btnLanguage">
+        <img src="./img/german.png" id="imgLanguage" alt="Deutsch" height="32px" width="32px">
+    </div> 
+    <div class="img-button" id="btnMode">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="svgMode">
+            <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+            <path d="M12,22 C17.5228475,22 22,17.5228475 22,12 C22,6.4771525 17.5228475,2 12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 Z M12,20.5 L12,3.5 C16.6944204,3.5 20.5,7.30557963 20.5,12 C20.5,16.6944204 16.6944204,20.5 12,20.5 Z" stroke="currentcolor" stroke-width="1"></path>
+        </svg>
+    </div>    
+    <div class="img-button" id="imgHelp">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" stroke="currentcolor" stroke-width="1">
+            <path d="M16,29A13,13,0,1,1,29,16,13,13,0,0,1,16,29ZM16,5A11,11,0,1,0,27,16,11,11,0,0,0,16,5Z"/><path d="M16,24a1,1,0,0,1-1-1,1.05,1.05,0,0,1,.29-.71,1,1,0,0,1,1.09-.21,1.15,1.15,0,0,1,.33.21l.12.15a.76.76,0,0,1,.09.18.64.64,0,0,1,.06.18,1.5,1.5,0,0,1,0,.2.84.84,0,0,1-.08.38,1.15,1.15,0,0,1-.21.33A1,1,0,0,1,16,24Z" stroke="currentcolor" stroke-width="1"/>
+            <path d="M17,20H15v-.76a4,4,0,0,1,2.31-3.54A3,3,0,1,0,13,13H11a5,5,0,1,1,7.19,4.49A2,2,0,0,0,17,19.24Z"
+            stroke="currentcolor" stroke-width="1"/>
+        </svg>
+    </div>
+    <div class="img-button" id="imgSettings">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="svgShowSettings">
+            <path d="M262.29 192.31a64 64 0 1057.4 57.4 64.13 64.13 0 00-57.4-57.4zM416.39 256a154.34 154.34 0 01-1.53 20.79l45.21 35.46a10.81 10.81 0 012.45 13.75l-42.77 74a10.81 10.81 0 01-13.14 4.59l-44.9-18.08a16.11 16.11 0 00-15.17 1.75A164.48 164.48 0 01325 400.8a15.94 15.94 0 00-8.82 12.14l-6.73 47.89a11.08 11.08 0 01-10.68 9.17h-85.54a11.11 11.11 0 01-10.69-8.87l-6.72-47.82a16.07 16.07 0 00-9-12.22 155.3 155.3 0 01-21.46-12.57 16 16 0 00-15.11-1.71l-44.89 18.07a10.81 10.81 0 01-13.14-4.58l-42.77-74a10.8 10.8 0 012.45-13.75l38.21-30a16.05 16.05 0 006-14.08c-.36-4.17-.58-8.33-.58-12.5s.21-8.27.58-12.35a16 16 0 00-6.07-13.94l-38.19-30A10.81 10.81 0 0149.48 186l42.77-74a10.81 10.81 0 0113.14-4.59l44.9 18.08a16.11 16.11 0 0015.17-1.75A164.48 164.48 0 01187 111.2a15.94 15.94 0 008.82-12.14l6.73-47.89A11.08 11.08 0 01213.23 42h85.54a11.11 11.11 0 0110.69 8.87l6.72 47.82a16.07 16.07 0 009 12.22 155.3 155.3 0 0121.46 12.57 16 16 0 0015.11 1.71l44.89-18.07a10.81 10.81 0 0113.14 4.58l42.77 74a10.8 10.8 0 01-2.45 13.75l-38.21 30a16.05 16.05 0 00-6.05 14.08c.33 4.14.55 8.3.55 12.47z" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"/>
+        </svg>
+    </div>            
+</nav>
+<div class="control-box">
+    <div class="control">
+        <input id="inpLength" type="text" placeholder=" " required inputmode="decimal" onClick="this.select();">
+        <label for="inpLength" id="lblLength">Länge</label>
+        <div class="icon unit-changer" w3-include-html="/templates/ruler.html"></div>
+        <span class="unit" id="spnLength">mm</span>
+    </div>
+    <div class="control">
+        <input id="inpWidth" type="text" placeholder=" " required inputmode="decimal" onClick="this.select();">
+        <label for="inpWidth" id="lblWidth">Breite</label>
+        <div class="icon unit-changer" w3-include-html="/templates/ruler.html"></div>
+        <span class="unit" id="spnWidth">mm</span>
+    </div>    
+</div>
+<div class="control" id="divArea">
+    <input id="inpArea" type="text" placeholder=" " inputmode="decimal" maxlength="8" disabled required onClick="this.select();">
+    <label for="inpArea" id="lblArea">Fläche</label>
+    <div class="icon" w3-include-html="/templates/calc.html"></div>
+    <span class="unit">m²</span>
+</div>
+<label class="left-aligned" style="margin: 1rem 0;">
+    <input id="inpCategory" class="slider" type="range" min="0" max="2" value="0" style="width: 50%;">
+    <span id="spnCalcType">Platten</span>    
+</label>
+<div class="control" data-type="levelling screed" hidden>
+    <input id="inpHeight" type="text" placeholder=" " inputmode="numeric" maxlength="3" onClick="this.select();">      
+    <label for="inpHeight" id="lblHeight">Höhe</label>
+    <div id="divHeight" class="icon unit-changer" w3-include-html="/templates/ruler.html"></div>
+    <span id="spnHeight" class="unit">mm</span>
+</div>
+<div class="control" data-type="levelling" hidden>
+    <select id="selBrand" style="text-align: center;">
+        <option value="1.7:5">Mapei Ultraplan Maxi</option>
+        <option value="1.8:5">Mapei Ultraplan Renovation</option>
+        <option value="1.6:6">Sopro FS 15</option>
+        <option value="1.6:6">PCI Periplan Extra</option>
+        <!-- value: kg:water per sack -->
+    </select>
+</div>
+<div class="control-box" data-type="tiles">
+    <div class="control">
+        <input id="inpTileWidth" type="text" placeholder=" " inputmode="numeric" maxlength="4" required onClick="this.select();">
+        <label for="inpTileWidth" id="lblTileWidth">Plattenbreite</label>
+        <span class="unit">mm</span>
+    </div> 
+    <div class="control">
+        <input id="inpTileLength" type="text" placeholder=" " inputmode="numeric" maxlength="4" required onClick="this.select();">      
+        <label for="inpTileLength" id="lblTileLength">Plattenlänge</label>
+        <span class="unit">mm</span>
+    </div>    
+</div>
+<div class="control-box" data-type="tiles">
+    <div class="control">
+        <input id="inpJointsWidth" type="text" placeholder=" " inputmode="numeric" maxlength="2" required onClick="this.select();">            
+        <label for="inpJointsWidth" id="lblJointsWidth">Fugenbreite</label>
+        <span class="unit">mm</span>
+    </div> 
+    <div class="control">
+        <input id="inpJointsDepth" type="text" placeholder=" " inputmode="numeric" maxlength="2" required onClick="this.select();">
+        <label for="inpJointsDepth" id="lblJointsDepth">Fugentiefe</label>
+        <span class="unit">mm</span>
+    </div>    
+</div>
+<div class="control-box" data-type="tiles">
+    <div class="control">
+        <input id="inpWaste" type="text" placeholder=" " inputmode="numeric" maxlength="2" onClick="this.select();">
+        <label for="inpWaste" id="lblWaste">Verschnitt</label>
+        <span class="unit">%</span>
+    </div>
+    <div class="control">
+        <label for="selTrowel" id="lblTrowel">Zahnung</label>
+        <select id="selTrowel">
+            <option value="1">2</option>
+            <option value="1.25">3</option>
+            <option value="1.5">4</option>
+            <option value="1.75">6</option>
+            <option value="2.75">8</option>
+            <option value="3.5" selected>10</option>
+            <option value="3.75">12</option>
+            <option value="4.75">15</option>
+            <option value="6.75">20</option>
+        </select>
+    </div>
+</div>
+<label class="left-aligned" data-type="tiles">
+    <input id="inpContactLayer" name="contactLayer" type='checkbox' role='switch'>
+    <span id="lblContactLayer">Kontaktschicht</span> 
+</label>
+<label class="left-aligned" data-type="tiles">
+    <input id="inpDiagonal" name="diagonal" type='checkbox' role='switch'>
+    <span id="lblDiagonal">Verlegung diagonal</span> 
+</label>
+<nav class="nav-bar-bottom">
+    <div class="img-button" id="imgRefresh">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 438.542 438.542" fill="currentcolor">
+            <path d="M427.408,19.697c-7.803-3.23-14.463-1.902-19.986,3.999l-37.116,36.834C349.94,41.305,326.672, 26.412,300.5,15.848 C274.328,5.285,247.251,0.003,219.271,0.003c-29.692,0-58.052,5.808-85.08,17.417c-27.03,11.61-50.347,27.215-69.951,46.82
+                c-19.605,19.607-35.214,42.921-46.824,69.949C5.807,161.219,0,189.575,0,219.271c0,29.687,5.807,58.05,17.417,85.079
+                c11.613,27.031,27.218,50.347,46.824,69.952c19.604,19.599,42.921,35.207,69.951,46.818c27.028,11.611,55.388,17.419,85.08,17.419
+                c32.736,0,63.865-6.899,93.363-20.7c29.5-13.795,54.625-33.26,75.377-58.386c1.52-1.903,2.234-4.045,2.136-6.424
+                c-0.089-2.378-0.999-4.329-2.711-5.852l-39.108-39.399c-2.101-1.711-4.473-2.566-7.139-2.566c-3.045,0.38-5.232,1.526-6.566,3.429
+                c-13.895,18.086-30.93,32.072-51.107,41.977c-20.173,9.894-41.586,14.839-64.237,14.839c-19.792,0-38.684-3.854-56.671-11.564
+                c-17.989-7.706-33.551-18.127-46.682-31.261c-13.13-13.135-23.551-28.691-31.261-46.682c-7.708-17.987-11.563-36.874-11.563-56.671
+                c0-19.795,3.858-38.691,11.563-56.674c7.707-17.985,18.127-33.547,31.261-46.678c13.135-13.134,28.693-23.555,46.682-31.265
+                c17.983-7.707,36.879-11.563,56.671-11.563c38.259,0,71.475,13.039,99.646,39.116l-39.409,39.394
+                c-5.903,5.711-7.231,12.279-4.001,19.701c3.241,7.614,8.856,11.42,16.854,11.42h127.906c4.949,0,9.23-1.807,12.848-5.424
+                c3.613-3.616,5.42-7.898,5.42-12.847V36.55C438.542,28.558,434.84,22.943,427.408,19.697z"/>
+        </svg>
+    </div>
+    <div class="img-button" id="imgSend" disabled>
+        <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512" fill="currentcolor">
+            <path d="M476.59 227.05l-.16-.07L49.35 49.84A23.56 23.56 0 0027.14 52 24.65 24.65 0 0016 72.59v113.29a24 24 0 0019.52 23.57l232.93 43.07a4 4 0 010 7.86L35.53 303.45A24 24 0 0016 327v113.31A23.57 23.57 0 0026.59 460a23.94 23.94 0 0013.22 4 24.55 24.55 0 009.52-1.93L476.4 285.94l.19-.09a32 32 0 000-58.8z"/>
+        </svg>
+    </div>            
+</nav>

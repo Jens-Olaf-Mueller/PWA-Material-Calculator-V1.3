@@ -1,0 +1,370 @@
+/* Styling the navigation elements */
+nav.nav-bar-top, nav.nav-bar-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+nav.nav-bar-top {
+    margin-top: 0.5rem;
+}
+
+nav.nav-bar-bottom {  
+    position: absolute;  
+    bottom: 0.75rem;
+    width: calc(100% - 2 * 1rem);
+}
+
+label, span {
+    color: var(--text-color, #999);
+}
+
+.img-button {
+    height: var(--navButtonSize, 2.5rem);
+    width: var(--navButtonSize, 2.5rem);
+    /* aspect-ratio: 1/1; */
+    border-radius: 50%;
+    box-shadow: 5px 5px 8px var(--shadow-dark), -5px -5px 8px var(--shadow-light);
+    padding: 0.4rem;
+    cursor: pointer;
+}
+
+.img-button[disabled] svg {
+    fill: var(--bg1);
+}
+
+#imgSettings.img-button {
+    margin-left: auto;
+}
+
+#imgCloseSettings, #imgCalcSettings {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    /* landscape: */
+    /* top: -55px;
+    right: 230px; */
+}
+
+#imgClose, #imgCloseCalc {
+    position: absolute;
+    right: 0.75rem;
+    bottom: 0.75rem;
+    z-index: 1112;
+}
+
+/* Styling all input controls */
+.control {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width:100%;
+    height: 2.5rem;
+    border-radius:8px;
+    background: none;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    color:var(--text-color, #999);
+    font-size:1rem;
+}
+
+#divArea {
+    z-index: 101;
+}
+
+
+.control#divArea * {
+    color: var(--accent-color, #5166d6);
+    font-weight: bold;
+}
+
+.control#divArea .icon {
+    color: var(--text-color, #999);
+}
+
+#inpArea:not([disabled], :focus):placeholder-shown ~ label {
+    color: var(--required-color, tomato);
+}
+
+.control .icon {
+    display: none;
+    position: absolute;
+    right: 0.5rem;
+    height: 1.33rem;
+    width: 1.33rem;
+    cursor: pointer;
+    z-index: 101;
+}
+
+.control span.unit {
+    position: absolute;
+    right: 0.75rem;
+}
+
+.control:has(.unit-changer, #svgCalculator) .unit {
+    right: 2.05rem;
+}
+
+.control input:not([type="checkbox"], [type="range"]) {
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    border: 1px silver;
+    border: none;
+    background: none;
+    height:100%;
+    width: calc(100% - 36px);
+    outline: none;
+    color: var(--text-color, #999);
+    font-size: 1rem;
+    transition: all 150ms ease-in;
+    z-index: 1; /* must be in front of label! */
+}
+
+.control input[type="checkbox"] {
+    display: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 100;
+}
+
+.control:has(input[type="range"]) {
+    height: 1.25rem;
+    box-shadow: none;
+}
+
+.control:has(input[type="range"]) label{
+    min-width: 8rem;
+    width: auto;
+    left: 0.25rem;
+}
+
+.control input[type="range"] {
+    position: absolute;
+    right: 33%;
+    height: 1.25rem; 
+    width: 7rem;   
+    appearance: none;
+    background-color: transparent;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    border-radius: 12px;
+}
+
+.control input[type="range"].switch {
+    position: absolute;
+    right: 0.25rem;
+    width: 2.5rem;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+.control input[type="range"]::-webkit-slider-thumb {
+     /* Override default look: */
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--accent-color, #5166d6);
+    height: 1.15rem;
+    width: 1.15rem;
+    border-radius: 50%;
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.control input[type="range"].switch:not([checked])::-webkit-slider-thumb {
+    background-color: var(--disabled-color, #444);
+}
+
+.control:has(input[type="checkbox"]){
+    box-shadow: none;
+    height: 1.5rem;
+}
+
+.control:has(input[type="checkbox"], input[type="range"], select) label {
+    top: unset;
+    color: var(--text-color, #999) ;
+}
+
+.control input:required ~ label {
+    color: var(--required-color, tomato);
+}
+
+.control input:focus ~ label,
+.control input:not(:placeholder-shown, :focus, [type="checkbox"]) ~ label {
+    top: -50%;
+    left: 16px;
+    font-size: 0.75rem;
+    filter: brightness(1.2);
+    color:var(--text-color, #999);
+}
+
+.control input:focus ~ .icon {
+    display: block;
+}
+
+.control label {
+    position: absolute;
+    top: 25%;
+    left: 0.75rem;
+    font-size: 1rem;
+    transition: top 200ms ease-in-out,
+                left 200ms ease-in-out,
+                font-size 200ms ease-in;
+}
+
+.control input:disabled,
+.control input:disabled ~ label,
+.control input:disabled ~ span {
+    color: var(--disabled-color, #444);
+}
+
+.control:has(input:disabled, select) {
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+.control select {
+    width: 100%;
+    background-color: transparent;
+    padding-right: 2.15rem;
+    color: var(--text-color, #999);
+    border: none;
+    outline: none;
+    appearance: none;
+    z-index: 1;
+    font-size: 1rem;
+    text-align: right;
+    /* fix a Safari bug: text-align does not work on select element! */
+    direction: rtl;
+}
+
+.control:has(select)::after {
+    content: ' ';
+    position: absolute;
+    right: 0.5rem;
+    top: 38%;
+    border: 10px solid transparent;
+    border-top: 10px solid var(--accent-color, #5166d6);
+    border-radius: 2px;
+    cursor: pointer;
+    transition: transform 350ms ease;
+}
+
+/* flip or rotate the dropdown arrow when opened */
+.control:has(select:open)::after{
+    transform: rotate(180deg) translateY(12px);
+}
+
+.control:has(select:active) {
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+}
+
+/* styling the controls */
+.control-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* styling checkboxes and switches */
+label.left-aligned {
+    justify-content: left !important;
+}
+
+label:has([role=switch], input[type=range]) {
+    width: 100%;
+    zoom: var(--switch-zoom, 1);
+    display: inline-flex;
+    align-items: center;
+    color: var(--text-color, #999);
+    cursor: pointer;
+    user-select: none;    
+}
+
+input[role=switch] {
+    --switch-handle-size: 0.5rem;
+    --switch-bg-size: 1.5rem;
+    --slider-size: 4rem;
+    --switch-handle-gap: 2px;
+    --switch-bg: color-mix(in srgb, var(--accent-color, #5166d6) 20%, transparent);
+    
+    appearance: none;
+    -webkit-appearance: none;
+    box-sizing: content-box;
+    display: inline-flex;
+    padding-inline: 0 var(--switch-bg-size);
+    border: none;
+    height: auto;
+    width: auto;    
+    font-size: 0;
+    margin-left: auto;
+    border-radius: 100px;
+    /* box-shadow: inset var(--box-shadow-dark), inset var(--box-shadow-light); */
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    transition: var(--switch-duration, 125ms) cubic-bezier(.65, 0, .5, 1);;
+    user-select: none;
+    outline: none;
+    filter: grayscale(1);  /* de-colorize the switch */
+    cursor: pointer;
+}
+
+input[role=switch]:checked {
+    padding-inline: var(--switch-bg-size) 0;
+    filter: none;
+}
+
+input[role=switch]::before {
+    content: '';
+    padding: var(--switch-handle-size);
+    margin: var(--switch-handle-gap);
+    background-color: var(--accent-color, #5166d6);
+    border-radius: 50%;
+    /* box-shadow: var(--box-shadow-dark), var(--box-shadow-light); */
+    transition: inherit;
+}
+
+input[role=switch]:first-child {
+    margin-left: 0;
+    margin-right: var(--padding-8px);
+    /* box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light); */
+}
+
+input.slider {
+    height: auto; 
+    min-width: 6rem;
+    width: 6rem;   
+    appearance: none;
+    background-color: transparent;
+    box-shadow: inset 4px 4px 8px var(--shadow-dark), inset -4px -4px 8px var(--shadow-light);
+    border-radius: 12px;
+}
+
+/***** Chrome, Safari, Opera, and Edge Chromium *****/
+input.slider::-webkit-slider-thumb {
+     /* Override default look: */
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--accent-color, #5166d6);
+    height: 1.0rem;
+    width: 1.0rem;
+    border-radius: 50%;
+    box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light);
+}
+
+input.slider::-webkit-slider-runnable-track {
+    height: 1.25rem;
+}
+
+label:has([role=switch], input[type=range]) {
+    zoom: var(--switch-zoom, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+    font-size: 1rem;
+}

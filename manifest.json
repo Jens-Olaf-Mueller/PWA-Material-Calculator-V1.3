@@ -1,0 +1,22 @@
+{
+    "// comment": "use: 'npx pwa-asset-generator' to create all required files",
+    
+    "name": "Materialrechner",
+    "short_name": "Materialrechner",
+    "description": "Materialrechner zum Berechnen von Fliesen, Kleber, Fugenmaterial und Nivelliermasse",
+    "id": "/",
+    "start_url" : "/",
+    "display_override": ["window-control-overlay", "fullscreen", "standalone","minimal-ui","browser"],
+    "display": "fullscreen",
+    "orientation": "portrait",
+    "theme_color": "#323234",
+    "background_color": "#323234",
+    "icons": [
+        {
+            "src": "img/icon.png",
+            "type": "image/png",
+            "sizes": "512x512",
+            "purpose": "maskable"
+        }
+    ]
+}

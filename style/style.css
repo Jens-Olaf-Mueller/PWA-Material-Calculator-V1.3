@@ -1,0 +1,200 @@
+@import url('./controls.css');
+@import url('./calculator.css');
+
+/* for light and darkmode see: */
+/* https://www.aleksandrhovhannisyan.com/blog/the-perfect-theme-switch/ */
+
+/* darkmode is default */
+:root {
+    --navButtonSize: 2.5rem;
+    --padding-8px: 0.5rem;
+    --icon-gap: 2.25rem;
+    --unit-width: 2.5rem;
+    --ctrl-disabled-brightness: brightness(1);
+    --ctrl-disabled-contrast: contrast(0.1);
+    --hover-effect: brightness(0.9);
+
+    --bg1: #020204;
+    --bg2: #323234;
+    --surface: linear-gradient(135deg, var(--bg1), var(--bg2));    
+    --shadow-dark :#040406;
+    --shadow-light: #444;
+    --accent-color: #5166d6;
+    --ctrl-disabled-brightness: brightness(0.6);
+    --ctrl-disabled-contrast: contrast(1);
+    --disabled-color: #777;
+    --text-color: #999;
+    --icon-color: #888;
+    --border-color: #555;
+    --required-color: tomato;
+    --hover-effect: brightness(1.25);
+    --box-shadow-dark: 4px 4px 8px var(--shadow-dark);
+    --box-shadow-light: -4px -4px 8px var(--shadow-light);
+    /* see: https://developer.mozilla.org/en-US/docs/Web/CSS/interpolate-size */
+    interpolate-size: allow-keywords;
+}
+
+html[data-theme="light"] {
+    --bg1: #e6e6e6;
+    --bg2: #ddd;
+    --shadow-dark: #b0b0b0;
+    --shadow-light: white;
+    --accent-color: #4055bf; /* #5166d6 */
+    --disabled-color: #555;
+    --text-color: #101010;
+    --required-color: red;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Tahoma, Verdana, Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+*[hidden] {
+    display: none !important;
+}
+
+html[data-theme="light"] {
+    color-scheme: light;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+}
+
+body {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface, var(--bg1, #020204));
+    font-family: 'BlinkMacSystemFont';
+    font-size: 16px;
+}
+
+svg.ruler, .img-button svg {
+    fill: var(--text-color, #999);
+}
+
+.icon svg#svgCalculator, svg#svgCalcSettings {
+    fill: var(--text-color, #999) !important;
+    stroke: var(--text-color, #999) !important;
+}
+
+kbd {
+    font-weight: bold;
+    margin: 3px;
+    padding-left: 8px;
+    border: 1px solid var(--text-color, #999);
+    border-radius: 4px;
+    color: var(--accent-color, #5166d6);
+    background-color: #ccc;
+}
+
+.pod-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.75rem;
+    width: 25%;
+    min-width: 33%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--bg2), var(--bg1));
+    color: var(--text-color, #999);
+    padding: 0 0.66rem;
+}
+
+.settings, .result, .help {
+    box-shadow: inset 8px 8px 8px var(--shadow-dark), inset -8px -8px 8px var(--shadow-light);
+    border-radius: 4px;
+    font-size: 1.05rem;
+    right: -1px;
+    z-index: 1111;
+}
+
+.settings {
+    position: absolute !important;
+    inset: 0;
+    gap: 2rem;
+    padding-top: 2rem;
+    transition: transform 250ms ease-in-out;
+    transform: scale(1);
+    transform-origin: top right;
+}
+
+.settings[hidden] {
+    display: unset !important;
+    transform: scale(0);
+}
+
+.help {
+    padding: 1.25rem;
+    font-size: 0.8rem;
+    text-align: justify;
+}
+
+.help ul {
+    margin-left: 1rem;
+}
+
+.result {
+    height: 100vh;
+    width: 100vw;
+    display: grid;    
+    grid-template-columns: 45% 0.85fr 32px auto;
+    grid-template-rows: repeat(8, auto);
+    column-gap: 6px;
+    row-gap: 3rem;
+    align-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0 0.66rem;
+}
+
+.result span.values-ral {
+    text-align: right;
+}
+
+.result span.res-unit {
+    font-weight: normal;
+}
+
+.result span.bags {
+    color: var(--accent-color, #5166d6);
+    text-align: right;
+}
+
+.result h1, .result h2 {
+    grid-column: span 4;
+    text-align: center;
+    color: var(--accent-color, #5166d6);
+}
+
+@media screen and (min-width: 320px) and (orientation: portrait) {
+    .pod-container {
+        width: 100vw;
+        height: 100vh; /* 100dvh ? */
+    }
+}
+
+@media screen and (min-width: 320px) and (max-width: 900px) and (orientation: landscape) {
+    .pod-container {
+        transform: rotate(-90deg);
+        transform-origin: center;
+        width: 100vh;
+        height: 100vw;
+    }
+
+    .settings {
+        top: unset;
+        transition: transform 350ms ease-in-out;
+        transform: rotate(-90deg) scale(1);
+    }
+}
