@@ -63,12 +63,15 @@
   * V1.3.1
     - style anhancements
     - fixed a bug in the calculator
+  * V1.3.1
+    - added a slider to change tile-package sizes in the result window
+    - continued completing documentation
+    - some minor bugfixes and slight changes in the calculator
+    - refractoring
 
 
 ## ToDo
-  - implementation of desktop and tablet support
-  - displaying a slider to change tile-package sizes in the result window
-  - adding a "flat" style for the calculator
+  - better implementation of desktop and tablet support
 
 
 ## Screenshots

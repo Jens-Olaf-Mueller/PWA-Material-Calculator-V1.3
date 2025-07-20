@@ -1,5 +1,6 @@
 import $ from './library.js';
 import { CALCULATOR_ASSETS as ASSETS } from "./constants.js";
+import { CAPTIONS } from './languages.js';
 
 const [MODULO, OPERATORS, FUNCTIONS, SEPARATOR, BRACKET_OPEN,BRACKET_CLOSE] = ASSETS.mathOps;
 const [ERR_TYPEMISMATCH, ERR_OVERFLOW, ERR_NEGATIVE_ROOT,ERR_DIV_BY_ZERO,ERR_INVALID_EXP,ERR_UNDEFINED] = ASSETS.errors;
@@ -95,7 +96,7 @@ export default class Calculator {
     }
 
     get isNumeric() {
-        return typeof this.currentButton == 'string' && (!isNaN(this.currentButton) || this.currentButton === 'π');
+        return typeof this.currentButton === 'string' && (!isNaN(this.currentButton) || this.currentButton === 'π');
     }
 
     get isBracket() {
@@ -117,7 +118,6 @@ export default class Calculator {
     }
 
 
-    // NOTE Init
     #init() {
         this.#renderCalculator();
         this.loadSettings();
@@ -143,7 +143,6 @@ export default class Calculator {
     }
 
 
-
     /**
      * Display methid of the calculator.
      * If a buddy control is assigned, it's value is going to be displayed.
@@ -167,25 +166,24 @@ export default class Calculator {
     }
 
 
-    loadSettings() {
-        this.settings = JSON.parse(localStorage.getItem('calculator-settings')) || null;
+    loadSettings(key = 'calculator-settings') {
+        this.settings = JSON.parse(localStorage.getItem(key)) || ASSETS.defaultSettings;
         for (const prop in this.settings) {
             this[prop] = this.settings[prop];
         }
-        // TODO settings
         $('inpDecimals').value = this.decimals;
         $('spnDecimals').innerText = this.decimals;
         $('inpGroupDigits').checked = this.groupDigits;
-        $('inpButtonStyle').checked = Boolean(this.buttonStyle);
-        this.switchButtonStyle(this.buttonStyle);        
+        $('inpButtonStyle').value = this.buttonStyle;
+        this.switchButtonStyle(this.buttonStyle);
     }
 
 
-    saveSettings() {
+    saveSettings(key = 'calculator-settings') {
         for (const prop in this.settings) {
             this.settings[prop] = this[prop];
         }
-        localStorage.setItem('calculator-settings', JSON.stringify(this.settings));
+        localStorage.setItem(key, JSON.stringify(this.settings));
     }
 
 
@@ -204,7 +202,10 @@ export default class Calculator {
     }
 
 
-
+    /**
+     * Deletes the last char from the input display.
+     * In case last char was a multi-char operator (i.e. "mod") it will delete these chars.
+     */
     deleteLastChar() {
         if (this.currOperand.includes('e')) this.reset();
         const len = this.operationIsPending === MODULO ? -5 : -1;
@@ -232,8 +233,7 @@ export default class Calculator {
 
         if (this.isNumeric) {
             if (this.isOperator() || this.calcDone) {
-                if (this.termIsOpen) {
-                } else {
+                if (!this.termIsOpen) {
                     this.prevOperand = this.currOperand;
                     this.currOperand = '';
                 }
@@ -292,21 +292,22 @@ export default class Calculator {
 
 
     updateDisplay(expression) {
-        if (expression == undefined) {
-            return;
-        } else if (expression instanceof Error) {
+        if (expression === undefined) return;
+        if (expression instanceof Error) {
             this.prevOperand = 'Error';
             this.currOperand = expression.message;
             this.error = true;
-        } else if (expression == 'π') {
-                this.currOperand = this.format$(this.round(Math.PI));
+            return;
+        }
+        if (expression == 'π') {
+            this.currOperand = this.format$(this.round(Math.PI));
         } else if (this.currOperand == '0' && this.isNumeric || this.calcDone) {            
             this.currOperand = expression;
             this.prevOperand = this.calcDone ? '' : this.prevOperand;
             this.calcDone = false;
         } else if (expression == ',' || this.isOperator(expression) || expression == BRACKET_OPEN) {
             this.currOperand += expression;
-        } else if (this.currOperand.length < ASSETS.maxInput) {
+        } else if (this.currOperand.length < ASSETS.maxInput || this.termIsOpen) {
             this.currOperand += expression;
             this.currOperand = this.format$(this.currOperand);
         }
@@ -400,7 +401,7 @@ export default class Calculator {
         if (op == 'R' && this.memory !== 0) {
             if (this.operationIsPending) this.prevOperand = this.currOperand;
             this.currOperand = this.format$(this.memory);
-        } 
+        }
         if (op == 'S') this.memory = this.currValue;
         if (op == '+') this.memory += this.currValue;
         if (op == '-') this.memory -= this.currValue;
@@ -533,7 +534,7 @@ export default class Calculator {
             this.setAttributes(div, {id: id, class: cls});
             divPod.append(div);
         });
-        const settings = $('divCalcSettings');        
+        const settings = $('divCalcSettings');
         settings.innerHTML = ASSETS.templates.settings;
         settings.setAttribute('hidden','');
         $('divStatusbar').append($('divMemory'), $('divPrevOperand'));
@@ -579,8 +580,7 @@ export default class Calculator {
         inpDigits.addEventListener('input', () => this.groupDigits = inpDigits.checked);
 
         $('divCalculatorPod').addEventListener('keyup', (e) => this.#handleKeyboard(e));
-        $('inpButtonStyle').addEventListener('input', (e) => this.switchButtonStyle(Number(e.target.checked)));
-
+        $('inpButtonStyle').addEventListener('input', (e) => this.switchButtonStyle(Number(e.target.value)));
         // detect if we are in portrait or landscape mode
         window.matchMedia('(orientation: portrait)').addEventListener('change', e => {
             this.#orientation = (e.matches) ? 'portrait' : 'landscape';
@@ -591,8 +591,9 @@ export default class Calculator {
 
 
     switchButtonStyle(index) {
-        const styles = ['rect','round']; // can be extended: i. e. 'flat', 'apple' and so on
+        const styles = ['rect','round','flat']; // can be extended: i. e. 'apple' and so on
         $('divCalculatorPod').setAttribute('data-buttons', styles[index]);
+        $('lblButtonStyle').innerText = CAPTIONS['lblButtonStyle'][index][this.language];
         this.buttonStyle = index;
     }
 

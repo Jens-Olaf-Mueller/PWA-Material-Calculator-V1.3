@@ -164,5 +164,10 @@ export const CAPTIONS = {
     h2CalcSettings: ['Einstellungen Taschenrechner','Impostazioni della calcolatrice','Calculator settings','Definições da calculadora','Setări calculator'],
     lblGroupDigits: ['Zifferngruppierung','Raggruppamento cifre','Digit grouping','Agrupamento de dígitos','Gruparea cifrelor'],
     lblDecimals: ['Dezimalstellen','Decimali','Decimals','Decimais','Decimale'],
-    lblButtonStyle: ['Buttons rund','Pulsanti rotondi','Buttons round','Botões redondos','Butoane rotunde']
+    lblButtons: ['Buttons','Pulsanti','Buttons','Botões','Butoane'],
+    lblButtonStyle: [
+        ['eckig','quadrato','square','quadrado','pătrat'],
+        ['rund','rotondo','round','redondo','rotund'],
+        ['flach','piatto','flat','plano','plat']
+    ] 
 };

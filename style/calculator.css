@@ -164,7 +164,10 @@ html[data-theme="light"] {
     border-radius: calc(var(--buttonWidth) / 2);
 }
 
-
+.calculator-pod[data-buttons="flat"] .calc-btn {
+    box-shadow: none;
+    border: 1px solid #454040;
+}
 
 /*********************************************************************************************/
 /*****                     styling the calculator's landscape mode                       *****/

@@ -5,7 +5,7 @@
  */
 
 import $, { includeHTML } from './library.js';
-import { APP_NAME, VERSION, DEF_SETTINGS, gaugeUnits } from './constants.js';
+import { APP_NAME, VERSION, DEF_SETTINGS, TMPL_PACKAGE_SIZE, gaugeUnits } from './constants.js';
 import { CAPTIONS } from './languages.js';
 import Material from './material_class.js';
 import Calculator from './calculator_class.js';
@@ -57,10 +57,10 @@ async function runApp() {
     btnLanguage = $('btnLanguage');
     btnHelp = $('imgHelp');
     btnMode =$('btnMode');
-    $('#lstPackageSize option').forEach(opt => arrPacks.push(Number(opt.value)));
     setEventListeners();
     applySettings(SETTINGS);
     CALCULATOR.buddy = inpArea;
+    CALCULATOR.language = SETTINGS.language;
 }
 
 
@@ -124,7 +124,8 @@ function setEventListeners() {
         switchSetting(btn);
     });
 
-    ['inpBagSize','inpPouchSize','inpPackageSize'].forEach(input => {
+    // ['inpBagSize','inpPouchSize','inpPackageSize'].forEach(input => {
+    ['inpBagSize','inpPouchSize'].forEach(input => {
         $(input).addEventListener('input', (e) => displayPackSizes(e.target));
     });
     $('inpCategory').addEventListener('input', (e) => toggleMaterialType(e));
@@ -178,13 +179,17 @@ function applySettings(settings = DEF_SETTINGS) {
         const value = settings[id];
         if (id.startsWith('inp') || id.startsWith('sel')) {
             const ctrl = $(id);
-            if (typeof value === 'boolean') {
-                ctrl.checked = value;
-            } else {
-                ctrl.value = value;
+            try {
+                if (typeof value === 'boolean') {
+                    ctrl.checked = value;
+                } else {
+                    ctrl.value = value;
+                }
+                // trigger the input event to apply setting controls!
+                ctrl.dispatchEvent(new Event('input'));
+            } catch (error) {
+                console.warn(`Setting '${id}' could not be assigned!`);
             }
-            // trigger the input event to apply setting controls!
-            ctrl.dispatchEvent(new Event('input'));
         }
     }
     applyDefaults(settings);
@@ -231,13 +236,13 @@ function applyLanguage(language) {
 
 function displayPackSizes(slider) {
     let unit = ' kg';
-    if (slider.id === 'inpPackageSize') {
-        unit = ' Stk';
-        const closest = arrPacks.reduce((prev, curr) => {
-            return (Math.abs(curr - slider.value) < Math.abs(prev - slider.value) ? curr : prev);
-        });
-        slider.value = closest;
-    }
+    // if (slider.id === 'inpPackageSize') {
+    //     unit = ' Stk';
+    //     const closest = arrPacks.reduce((prev, curr) => {
+    //         return (Math.abs(curr - slider.value) < Math.abs(prev - slider.value) ? curr : prev);
+    //     });
+    //     slider.value = closest;
+    // }
     slider.nextElementSibling.innerText = slider.value + unit;
     SETTINGS[slider.id] = slider.value;
 }
@@ -340,16 +345,24 @@ function showResult(category) {
             const key = cell.substring(3).toLocaleLowerCase(),
                   bag = i < 2 ? CAPTIONS.spnBags[lng] : 'Pack',
                   size = i == 0 ? '(' + SETTINGS.inpBagSize + ' kg)' :
-                         i == 1 ? '(' + SETTINGS.inpPouchSize + ' kg)' :
-                         i == 2 ? '(' + MATERIAL.tilesPackSize + ' pcs)' : '';
+                         i == 1 ? '(' + SETTINGS.inpPouchSize + ' kg)' : '';
+                        //  i == 2 ? '(' + MATERIAL.tilesPackSize + ' pcs)' : '';
             grid.innerHTML += `
                 <span>${CAPTIONS[cell][lng]} ${size}</span>
-                <span class="values-ral">${MATERIAL[key]}</span>
+                <span class="values-ral" id="${cell}Amount">${MATERIAL[key]}</span>
                 <span class="res-unit">${['kg','kg','Stk'][i]}</span>
-                <span class="bags">${MATERIAL.bags(key)}  ${bag}</span>`;
+                <span class="bags" id="${cell}${i}">${MATERIAL.bags(key)}  ${bag}</span>`;
         });
+        // now we add the slider template for package sizes:
+        grid.innerHTML += TMPL_PACKAGE_SIZE;
+        $('lblPackageSize').innerText = CAPTIONS.lblPackageSize[lng];
+        $('#lstPackageSize option').forEach(opt => arrPacks.push(Number(opt.value)));
+        const sliderPackSize = $('inpPackageSize');
+        sliderPackSize.addEventListener('input', (e) => updateTilePackages(e.target));
+        updateTilePackages(sliderPackSize);
         return;
     }
+
     const cell = ['spnTiles','spnLevel','spnScreed'][category],
             key = cell.substring(3).toLocaleLowerCase(),
             idx = category == LEVELLING ? key + 'Compound' : key;
@@ -388,8 +401,20 @@ function assignInputs(material) {
     material.jointWidth = Number($('inpJointsWidth').value);
     material.bagSize = material.category == TILES ? Number(SETTINGS.inpBagSize) : 25;
     material.pouchSize = Number(SETTINGS.inpPouchSize);
-    material.tilesPackSize = Number($('inpPackageSize').value);
+    // material.tilesPackSize = Number($('inpPackageSize').value);
     return material;
+}
+
+
+function updateTilePackages(slider) {
+    const closest = arrPacks.reduce((prev, curr) => {
+        return (Math.abs(curr - slider.value) < Math.abs(prev - slider.value) ? curr : prev);
+    });
+    slider.value = closest;
+    $('spnPackageSize').innerText = closest + ' pcs';
+    const tiles = Number($('spnTilesAmount').innerText);
+    let packs = Math.ceil(tiles / closest);
+    $('spnTiles2').innerText = packs + ' pack';
 }
 
 
